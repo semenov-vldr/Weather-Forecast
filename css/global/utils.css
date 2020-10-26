@@ -7,3 +7,46 @@
 
   clip: rect(0 0 0 0);
 }
+
+.card-list {
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  list-style-type: none;
+  margin-bottom: 3px;
+  padding: 2px;
+}
+
+.card--dragged {
+  padding: 16px 14px;
+  color: var(--inactive-color);
+  border: 1px dashed var(--inactive-color);
+  background-color: transparent;
+}
+
+.card--dragged::after {
+  display: none;
+}
+
+.card.active .big-card__city {
+  color: var(--color-text-white);
+}
+
+.card.active .big-card__temperature,
+.card.active .big-card__wind-info {
+  color: var(--color-text-white);
+}
+
+.card.active .big-card__header {
+  background-color: var(--color-blue-light);
+}
+
+.card.active .big-card__content {
+  background-color: var(--color-blue-main);
+}
+
+.hidden-block {
+  display: none;
+}
