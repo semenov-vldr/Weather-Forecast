@@ -42,7 +42,7 @@ select {
 }
 
 input::-ms-clear,
-input::-ms-reveal{
+input::-ms-reveal {
   display: none;
 }
 
