@@ -1,11 +1,6 @@
-import {SortType, StateActions, STATUS_BIG_CARD, STATUS_SMALL_CARD, URL} from './utils.js';
+import {SortType, SortTypeMethods, StateActions, STATUS_BIG_CARD, STATUS_SMALL_CARD, URL} from './utils.js';
 
 export class WeatherService {
-  SortTypeMethods = {
-    ASC: (a, b) => a.city.localeCompare(b.city),
-    DESC: (a, b) => -a.city.localeCompare(b.city),
-  };
-
   _favoritesCities = [];
   _search = '';
   _sortType = SortType.ASC;
@@ -19,18 +14,38 @@ export class WeatherService {
     stormy: false,
   };
   _data = {cities: []};
-  map = `global variable for init map component`;
-  markers = `global variable for markers for map component`;
+
+  _map;
+
+  get map() {
+    return this._map;
+  }
+
+  set map(value) {
+    this._map = value;
+  }
+
+  _markers = [];
+
+  get markers() {
+    return this._markers;
+  }
+
+  set markers(value) {
+    this._markers = value;
+  }
 
   async getAllCities() {
-    this._data = await fetch(URL).then(res => res.json());
-    return this._data.cities.sort(this.SortTypeMethods[this._sortType]);
+    this._data = await fetch(URL)
+      .then(res => res.json())
+      .catch(() => ([]));
+    return this._data.cities.sort(SortTypeMethods[this._sortType]);
   }
 
   getCitiesForSmallCardList() {
     return this._data.cities
-      .filter((city) => city.city.toLowerCase().includes(this._search))
-      .sort(this.SortTypeMethods[this._sortType]);
+      .filter((item) => item.city.toLowerCase().includes(this._search))
+      .sort(SortTypeMethods[this._sortType]);
   }
 
   setSortType(sortType) {
@@ -49,17 +64,10 @@ export class WeatherService {
   }
 
   getFavoriteCities() {
-    if (this._favoritesCities.length === 0) {
-      return this._favoritesCities;
-    }
+    const keysForFilter = Object.keys(this._filter).filter(f => this._filter[f]);
 
     return this._favoritesCities.filter((city) => {
-      const keysForFilter = Object.keys(this._filter)
-        .filter(f => this._filter[f]);
-      if (!keysForFilter.length) {
-        return true;
-      }
-      return keysForFilter.every(key => city.weather[key]);
+      return keysForFilter.length ? keysForFilter.every(key => city.weather[key]) : true;
     });
   }
 
@@ -91,24 +99,24 @@ export class WeatherService {
   }
 
   makeCardDraggable(element, city) {
-    window.draggedElement = null;
-    window.cardStatus = null;
+    this._draggedElement = null;
+    this._cardStatus = null;
     element.draggable = true;
 
     element.addEventListener(`dragstart`, () => {
-      window.draggedElement = element;
-      window.draggedElement.classList.add(`card--dragged`);
+      this._draggedElement = element;
+      this._draggedElement.classList.add(`card--dragged`);
     });
 
     element.addEventListener(`dragend`, () => {
       const prevCardId = element.previousElementSibling
         ? element.previousElementSibling.id
         : undefined;
-      window.draggedElement.classList.remove(`card--dragged`);
-      window.draggedElement = null;
+      this._draggedElement.classList.remove(`card--dragged`);
+      this._draggedElement = null;
 
-      if (window.cardStatus) {
-        city.status = window.cardStatus;
+      if (this._cardStatus) {
+        city.status = this._cardStatus;
         this.updatePosition(city, prevCardId);
       }
     });
@@ -118,31 +126,28 @@ export class WeatherService {
     element.addEventListener(`dragover`, (evt) => {
       evt.preventDefault();
       const elementUnder = evt.target;
-      if (elementUnder === window.draggedElement) {
+      if (elementUnder === this._draggedElement) {
         return;
       }
 
       if (elementUnder.classList.contains(`card`)) {
-        if (elementUnder === window.draggedElement.nextElementSibling) {
-          element.insertBefore(window.draggedElement, elementUnder.nextElementSibling);
-        } else {
-          element.insertBefore(window.draggedElement, elementUnder);
-        }
+        const refChild = (elementUnder === this._draggedElement.nextElementSibling) ? elementUnder.nextElementSibling : elementUnder;
+
+        element.insertBefore(this._draggedElement, refChild);
+
         return;
       }
 
       if (elementUnder.classList.contains(`small-card`)) {
-        window.cardStatus = STATUS_SMALL_CARD;
-      } else if (
-        elementUnder.classList.contains(`big-card__content`) ||
-        elementUnder.classList.contains(`weather-content__help`)
-      ) {
-        window.cardStatus = STATUS_BIG_CARD;
+        this._cardStatus = STATUS_SMALL_CARD;
+      } else if (elementUnder.classList.contains(`big-card__content`) || elementUnder.classList.contains(`weather-content__help`)) {
+        this._cardStatus = STATUS_BIG_CARD;
       }
     });
   }
 
   _emitEvent(type, data) {
+    console.log('WeatherService._emitEvent', type, data);
     window.dispatchEvent(new CustomEvent(type, {data}));
   }
 }

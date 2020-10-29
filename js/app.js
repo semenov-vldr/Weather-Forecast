@@ -1,16 +1,14 @@
-import {MapComponent} from './components/map.component.js';
-import {WeatherComponent} from './components/weather.component.js';
+import {MapComponent} from './components/map-component.js';
+import {WeatherComponent} from './components/weather-component.js';
 import {InsertPosition, renderElement} from './utils.js';
-import {WeatherService} from './weatherService.js';
+import {WeatherService} from './weather-service.js';
 
 export class App {
   constructor() {
     this.weatherService = new WeatherService();
   }
 
-  init() {
-    const weatherAppElement = document.querySelector(`.weather-app`);
-
+  init(weatherAppElement) {
     const weatherComponent = new WeatherComponent(this.weatherService);
     const weatherElement = weatherComponent.getElement();
     renderElement(weatherAppElement, weatherElement, InsertPosition.BEFOREEND);

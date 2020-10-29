@@ -1,4 +1,6 @@
 import {App} from './app.js';
 
 const app = new App();
-app.init();
+const weatherAppElement = document.querySelector(`.weather-app`);
+
+app.init(weatherAppElement);

@@ -50,3 +50,26 @@ export function renderElement(container, element, insertPosition = InsertPositio
 export function setElementVisibility(element, visibility) {
   element.classList.toggle(HIDE_BLOCK_CLASS, !visibility);
 }
+
+export const DEFAULT_LAT = 55.751244;
+export const DEFAULT_LON = 37.618423;
+export const DEFAULT_ZOOM = 10;
+export const OPACITY_DEFAULT = 1.0;
+export const OPACITY_INACTIVE = 0.7;
+
+export const SortTypeMethods = {
+  ASC: (a, b) => a.city.localeCompare(b.city),
+  DESC: (a, b) => -a.city.localeCompare(b.city),
+};
+
+export function toggleActiveClassForPoint(evt) {
+  const element = document.querySelector(`#${evt.target.options.title.split(` `).join(``)}`);
+  element.classList.toggle(`active`);
+  if (element.classList.contains(`active`)) {
+    this.setOpacity(OPACITY_DEFAULT);
+  } else {
+    this.setOpacity(OPACITY_INACTIVE);
+  }
+}
+
+export const LOCATION_API_URL = `https://ipinfo.io/json?token=c53e5677671c54`;

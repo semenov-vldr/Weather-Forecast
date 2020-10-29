@@ -1,8 +1,8 @@
 import {InsertPosition, renderElement} from '../utils.js';
-import {AbstractComponent} from './abstract.component.js';
-import {BigCardListComponent} from './big-card-list.component.js';
-import {HeaderNavComponent} from './header-nav.component.js';
-import {SmallCardListComponent} from './small-card-list.component.js';
+import {AbstractComponent} from './abstract-component.js';
+import {BigCardListComponent} from './big-card-list-component.js';
+import {HeaderNavComponent} from './header-nav-component.js';
+import {SmallCardListComponent} from './small-card-list-component.js';
 
 export class WeatherComponent extends AbstractComponent {
   constructor(weatherService) {

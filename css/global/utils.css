@@ -19,13 +19,6 @@
   padding: 2px;
 }
 
-.card--dragged {
-  padding: 16px 14px;
-  color: var(--inactive-color);
-  border: 1px dashed var(--inactive-color);
-  background-color: transparent;
-}
-
 .card--dragged::after {
   display: none;
 }

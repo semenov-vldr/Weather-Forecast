@@ -1,10 +1,14 @@
 import {FilterState, SortType} from '../utils.js';
-import {AbstractComponent} from './abstract.component.js';
+import {AbstractComponent} from './abstract-component.js';
 
 export class HeaderNavComponent extends AbstractComponent {
   constructor(weatherService) {
     super();
     this.weatherService = weatherService;
+
+    this._changeSortHandler = this._changeSortHandler.bind(this);
+    this._filterByTextHandler = this._filterByTextHandler.bind(this);
+    this._filterSortHandler = this._filterSortHandler.bind(this);
   }
 
   _getTemplate() {
@@ -136,43 +140,43 @@ export class HeaderNavComponent extends AbstractComponent {
   _addEventListeners() {
     this.getElement()
       .querySelector(`#alphabet-sort`)
-      .addEventListener(`change`, this._changeSortHandler.bind(this));
+      .addEventListener(`change`, this._changeSortHandler);
 
     this.getElement()
       .querySelector(`#alphabet-sort-reverse`)
-      .addEventListener(`change`, this._changeSortHandler.bind(this));
+      .addEventListener(`change`, this._changeSortHandler);
 
     this.getElement()
       .querySelector(`#search`)
-      .addEventListener(`input`, this._filterByTextHandler.bind(this));
+      .addEventListener(`input`, this._filterByTextHandler);
 
     this.getElement()
       .querySelector(`#rainy`)
-      .addEventListener(`change`, this._filterSort.bind(this));
+      .addEventListener(`change`, this._filterSortHandler);
 
     this.getElement()
       .querySelector(`#sunny`)
-      .addEventListener(`change`, this._filterSort.bind(this));
+      .addEventListener(`change`, this._filterSortHandler);
 
     this.getElement()
       .querySelector(`#cloudy`)
-      .addEventListener(`change`, this._filterSort.bind(this));
+      .addEventListener(`change`, this._filterSortHandler);
 
     this.getElement()
       .querySelector(`#snowy`)
-      .addEventListener(`change`, this._filterSort.bind(this));
+      .addEventListener(`change`, this._filterSortHandler);
 
     this.getElement()
       .querySelector(`#tornado`)
-      .addEventListener(`change`, this._filterSort.bind(this));
+      .addEventListener(`change`, this._filterSortHandler);
 
     this.getElement()
       .querySelector(`#blizzard`)
-      .addEventListener(`change`, this._filterSort.bind(this));
+      .addEventListener(`change`, this._filterSortHandler);
 
     this.getElement()
       .querySelector(`#meteor-shower`)
-      .addEventListener(`change`, this._filterSort.bind(this));
+      .addEventListener(`change`, this._filterSortHandler);
   }
 
   _changeSortHandler(evt) {
@@ -184,7 +188,7 @@ export class HeaderNavComponent extends AbstractComponent {
     this.weatherService.setSearch(evt.target.value);
   }
 
-  _filterSort(evt) {
+  _filterSortHandler(evt) {
     this.weatherService.setFilter(evt.target.value, evt.target.checked);
   }
 }
