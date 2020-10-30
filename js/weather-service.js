@@ -1,69 +1,70 @@
-import {SortType, SortTypeMethods, StateActions, STATUS_BIG_CARD, STATUS_SMALL_CARD, URL} from './utils.js';
+import { SortType, SortTypeMethods, StateActions, STATUS_BIG_CARD, STATUS_SMALL_CARD, URL } from './utils.js';
 
 export class WeatherService {
-  _favoritesCities = [];
-  _search = '';
-  _sortType = SortType.ASC;
-  _filter = {
-    sunny: false,
-    cloudy: false,
-    snowy: false,
-    metorite: false,
-    rainy: false,
-    blizzard: false,
-    stormy: false,
-  };
-  _data = {cities: []};
+  constructor () {
+    this._favoritesCities = [];
+    this._search = '';
+    this._sortType = SortType.ASC;
+    this._filter = {
+      sunny: false,
+      cloudy: false,
+      snowy: false,
+      metorite: false,
+      rainy: false,
+      blizzard: false,
+      stormy: false,
+    };
+    this._data = { cities: [] };
+    this._map = undefined;
+    this._markers = [];
+  }
 
-  _map;
-
-  get map() {
+  get map () {
     return this._map;
   }
 
-  set map(value) {
+  set map (value) {
     this._map = value;
   }
 
-  _markers = [];
-
-  get markers() {
+  get markers () {
     return this._markers;
   }
 
-  set markers(value) {
+  set markers (value) {
     this._markers = value;
   }
 
-  async getAllCities() {
+  async getAllCities () {
     this._data = await fetch(URL)
       .then(res => res.json())
       .catch(() => ([]));
-    return this._data.cities.sort(SortTypeMethods[this._sortType]);
+    return this._data.cities
+      .sort(SortTypeMethods[this._sortType]);
   }
 
-  getCitiesForSmallCardList() {
+  getCitiesForSmallCardList () {
     return this._data.cities
       .filter((item) => item.city.toLowerCase().includes(this._search))
       .sort(SortTypeMethods[this._sortType]);
   }
 
-  setSortType(sortType) {
+  setSortType (sortType) {
     this._sortType = sortType;
     this._emitEvent(StateActions.SORT_CHANGES, this._sortType);
   }
 
-  setSearch(text) {
+  setSearch (text) {
     this._search = text.toLowerCase();
     this._emitEvent(StateActions.SEARCH_CHANGES, this._sortType);
   }
 
-  setFilter(filterKey, value) {
+  setFilter (filterKey, value) {
     this._filter[filterKey] = value;
     this._emitEvent(StateActions.FILTER_CHANGES, this._sortType);
   }
 
-  getFavoriteCities() {
+  getFavoriteCities () {
     const keysForFilter = Object.keys(this._filter).filter(f => this._filter[f]);
 
     return this._favoritesCities.filter((city) => {
@@ -71,7 +72,7 @@ export class WeatherService {
     });
   }
 
-  updatePosition(card, prevCardId) {
+  updatePosition (card, prevCardId) {
     if (!this._favoritesCities.length && card.status === STATUS_BIG_CARD) {
       const cardIndex = this._data.cities.findIndex((city) => city.city === card.city);
 
@@ -98,7 +99,7 @@ export class WeatherService {
     this._emitEvent(StateActions.CARD_UPDATE_POSITION, card);
   }
 
-  makeCardDraggable(element, city) {
+  makeCardDraggable (element, city) {
     this._draggedElement = null;
     this._cardStatus = null;
     element.draggable = true;
@@ -122,7 +123,7 @@ export class WeatherService {
     });
   }
 
-  makeListDroppable(element) {
+  makeListDroppable (element) {
     element.addEventListener(`dragover`, (evt) => {
       evt.preventDefault();
       const elementUnder = evt.target;
@@ -146,8 +147,7 @@ export class WeatherService {
     });
   }
 
-  _emitEvent(type, data) {
-    console.log('WeatherService._emitEvent', type, data);
-    window.dispatchEvent(new CustomEvent(type, {data}));
+  _emitEvent (type, data) {
+    window.dispatchEvent(new CustomEvent(type, { data }));
   }
 }

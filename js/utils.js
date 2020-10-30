@@ -9,8 +9,8 @@ export const InsertPosition = {
 };
 
 export const SortType = {
-  ASC: `ASC`,
-  DESC: `DESC`,
+  ASC: `asc`,
+  DESC: `desc`,
 };
 
 export const StateActions = {
@@ -58,8 +58,8 @@ export const OPACITY_DEFAULT = 1.0;
 export const OPACITY_INACTIVE = 0.7;
 
 export const SortTypeMethods = {
-  ASC: (a, b) => a.city.localeCompare(b.city),
-  DESC: (a, b) => -a.city.localeCompare(b.city),
+  asc: (a, b) => a.city.localeCompare(b.city),
+  desc: (a, b) => -a.city.localeCompare(b.city),
 };
 
 export function toggleActiveClassForPoint(evt) {
