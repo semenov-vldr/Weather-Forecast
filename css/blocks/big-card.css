@@ -134,3 +134,7 @@
   background-color: rgba(247, 248, 255, 0.3);
   border: 2px dashed var(--color-border);
 }
+
+.big-card--empty.hidden-block {
+  display: none;
+}
