@@ -3,8 +3,9 @@ import {getDataWeather} from './api.js';
 import './live-search.js';
 import './sort.js';
 import './drug&drop.js';
+import dragAndDrop from "./drug&drop.js";
 
 
-getDataWeather();
+await getDataWeather();
+dragAndDrop()
 
-//setInterval(() => getDataWeather(), 1000);
