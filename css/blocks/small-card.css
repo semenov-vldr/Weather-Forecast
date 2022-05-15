@@ -12,6 +12,7 @@
   transition: background-color var(--transition-base), filter var(--transition-base);
 }
 
+
 .small-card:hover {
   background-color: var(--color-blue-light);
 }
