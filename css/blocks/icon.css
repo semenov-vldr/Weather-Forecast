@@ -55,16 +55,16 @@
   background-image: url("../../img/icon/icon-snowy.svg");
 }
 
-.icon--tornado {
-  background-image: url("../../img/icon/icon-tornado.svg");
+.icon--stormy {
+  background-image: url("../../img/icon/icon-stormy.svg");
 }
 
 .icon--blizzard {
-  background-image: url("../../img/icon/icon-thundersrtorm.svg");
+  background-image: url("../../img/icon/icon-blizzard.svg");
 }
 
-.icon--meteor-shower {
-  background-image: url("../../img/icon/icon-meteor-shower.svg");
+.icon--metorite {
+  background-image: url("../../img/icon/icon-metorite.svg");
 }
 
 .icon--wind {

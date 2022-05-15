@@ -8,6 +8,8 @@
 
 .weather-content__small-cards,
 .weather-content__big-cards {
+  display: flex;
+  flex-direction: column;
   width: calc(50% - 2px);
   height: 100%;
   padding-bottom: 100px;
@@ -31,6 +33,7 @@
 .weather-content__big-cards > div:last-child {
   margin-bottom: 80px;
 }
+
 
 .weather-content__big-cards {
   position: relative;

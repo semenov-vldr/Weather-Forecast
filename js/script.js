@@ -1,6 +1,10 @@
-import {App} from './app.js';
+import './map.js';
+import {getDataWeather} from './api.js';
+import './live-search.js';
+import './sort.js';
+import './drug&drop.js';
 
-const app = new App();
-const weatherAppElement = document.querySelector(`.weather-app`);
 
-app.init(weatherAppElement);
+getDataWeather();
+
+//setInterval(() => getDataWeather(), 1000);

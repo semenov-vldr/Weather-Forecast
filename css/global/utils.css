@@ -40,6 +40,11 @@
   background-color: var(--color-blue-main);
 }
 
-.hidden-block {
+.hidden-block,
+.hidden {
   display: none;
+}
+
+.color {
+  color: tomato;
 }
