@@ -10,12 +10,11 @@ const dragAndDrop = () => {
     let smallCardList = document.querySelector('.small-card');
     console.log(smallCardList);
 
-    smallCardList.classList.add('hidden', 'color');
+    smallCardList.classList.add('color');
     console.log('Класс добавлен');
-
 };
 
-setTimeout(dragAndDrop, 1000);
+//setTimeout(dragAndDrop, 1000);
 
+export {dragAndDrop}
 
-//dragAndDrop();
