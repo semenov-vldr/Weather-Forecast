@@ -61,4 +61,15 @@ const getDirWind = (deg) => {
 const checkPolarity = (value) => value <= 0 ? '' + value: '+' + value;
 
 
-export {DIR_OF_THE_WILD, getDirWind, checkPolarity};
+// Debounce
+function debounce (fn) {
+    let timeout;
+    return function () {
+        const fnCall = () => { fn.apply(this, arguments) };
+        clearTimeout(timeout);
+        timeout = setTimeout(fnCall, 500);
+    };
+};
+
+
+export {DIR_OF_THE_WILD, getDirWind, checkPolarity, debounce};

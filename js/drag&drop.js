@@ -1,23 +1,12 @@
 import { renderDataBigCard, renderSmallCard } from "./api.js";
 import { deletePoint } from './map.js';
+import { debounce } from "./utils.js";
 
 const smallCardsBlock = document.querySelector('.weather-content__small-cards');
 const bigCardsBlock = document.querySelector('.weather-content__big-cards');
 
 const contentHelp = document.querySelector('.weather-content__help');
 const bigCardEmpty = document.querySelector('.big-card--empty');
-
-
-//-------Debounce----------------------
-
-function debounce (fn) {
-    let timeout;
-    return function () {
-        const fnCall = () => { fn.apply(this, arguments) };
-        clearTimeout(timeout);
-        timeout = setTimeout(fnCall, 500);
-    };
-};
 
 
 // ------------------dragAndDrop_smallCard--------------------------------
@@ -71,30 +60,28 @@ const dragAndDrop_smallCard = () => {
 
 // ------------------dragAndDrop_bigCard--------------------------------------
 
-
 function dragAndDrop_bigCard () {
     const bigCardList = bigCardsBlock.querySelectorAll('.big-card[draggable="true"]');
 
     // Функции для перетаскиваемого объекта
 
-    bigCardList.forEach(big_card => {
-        big_card.addEventListener('dragstart', dragStart);
-        big_card.addEventListener('dragend', dragEnd);
-    });
-
     function dragStart (evt) {
         evt.dataTransfer.setData('id', evt.target.dataset.id);
         const id = evt.dataTransfer.getData('id');
         console.log(id + ' - Захват большой карточки');
-        evt.dataTransfer.effectAllowed = 'move';
-    };
+    }; 
 
     function dragEnd (evt) {
         evt.preventDefault();
         console.log('Отпустили большую карточку');
     };
 
+    bigCardList.forEach(big_card => {
+        big_card.addEventListener('dragstart', dragStart);
+        big_card.addEventListener('dragend', dragEnd);
+    });
 
+    
     // Функции для принимающего объекта
 
     function dragEnter () {
@@ -107,10 +94,7 @@ function dragAndDrop_bigCard () {
         console.log('Покинул зону');
     };
 
-    function dragOver (evt) {
-        evt.preventDefault();
-        evt.dataTransfer.effectAllowed = 'move';
-    };
+    function dragOver (evt) { evt.preventDefault() };
 
     function onDrop (evt) {
         const id = evt.dataTransfer.getData('id');
@@ -131,15 +115,12 @@ function dragAndDrop_bigCard () {
 };
 
 
-// function deleteWatcher () {
     const observer = new MutationObserver(dragAndDrop_bigCard);
     
     observer.observe(bigCardsBlock, {
       childList: true, // слежка за добавлением/удалением новых узлов
       subtree: true, // слежка за добавлением дочерних элементов любой вложенности
     });
-// };
-
 
 
 // Sortable

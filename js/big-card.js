@@ -4,7 +4,7 @@ import {checkPolarity} from './utils.js'
 
 
 const bigCardTemplate = document.querySelector('#big-card').content;
-const bigCardsBlock = document.querySelector('.weather-content__big-cards'); // Блок бол. карточек (правый)
+const bigCardsBlock = document.querySelector('.weather-content__big-cards');
 const bigCardEmpty = bigCardsBlock.querySelector('.big-card--empty');
 
 const addValue = (elem, value) => elem.textContent = value;
