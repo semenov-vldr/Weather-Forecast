@@ -1,28 +1,28 @@
 import { getDirWind } from './utils.js'
+import {getName} from './array-cities.js'
+import {checkPolarity} from './utils.js'
 
 
 const bigCardTemplate = document.querySelector('#big-card').content;
-
 const bigCardsBlock = document.querySelector('.weather-content__big-cards'); // Блок бол. карточек (правый)
+const bigCardEmpty = bigCardsBlock.querySelector('.big-card--empty');
 
-const addValue = (elem, value) => {elem.textContent = value};
-const hideElement = (elem) => {elem.classList.add('hidden-block')};
+const addValue = (elem, value) => elem.textContent = value;
+const hideElement = (elem) => elem.classList.add('hidden');
 
 
 const createBigCard = (city) => {
 
-    console.log(getDirWind(city.wind.deg) + ' - Проверка');
-
     const bigCard = bigCardTemplate.cloneNode(true);
 
     if (city.name) {
-        addValue(bigCard.querySelector('.big-card__city'), city.name);
+        addValue(bigCard.querySelector('.big-card__city'), getName(city.id));
     } else {
         hideElement(bigCard.querySelector('.big-card__city'));
     }
 
     if (city.main.temp) {
-        addValue(bigCard.querySelector('.big-card__temperature'), `${Math.round(city.main.temp - 273)}°`);
+        addValue(bigCard.querySelector('.big-card__temperature'), `${checkPolarity(Math.round(city.main.temp - 273))}°`);
     } else {
         hideElement(bigCard.querySelector('.big-card__temperature'));
     }
@@ -33,17 +33,16 @@ const createBigCard = (city) => {
         hideElement(bigCard.querySelector('.big-card__wind-info'));
     }
 
-    const bigCardEmpty = document.querySelector('.big-card--empty');
-    bigCardEmpty.classList.add('hidden-block');
-
-    let bigCardWrapper = document.createElement('div');
-   
-
+    const bigCardWrapper = document.createElement('div');
     bigCardWrapper.classList.add('big-card');
+    bigCardWrapper.setAttribute('data-id', city.id);
     bigCardWrapper.append(bigCard);
+    bigCardEmpty.insertAdjacentElement('beforebegin', bigCardWrapper);
+    bigCardWrapper.setAttribute('draggable', 'true');
 
-    bigCardsBlock.append(bigCardWrapper);
+    return bigCardWrapper;
 };
+
 
 
 export {createBigCard};

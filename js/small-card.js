@@ -5,7 +5,7 @@ const smallCardTemplate = document.querySelector('#small-card').content;
 const smallCardsBlock = document.querySelector('.weather-content__small-cards'); // Блок мал. карточек (левый)
 
 const addValue = (elem, value) => {elem.textContent = value};
-const hideElement = (elem) => {elem.classList.add('hidden-block')};
+const hideElement = (elem) => {elem.classList.add('hidden')};
 
 
 const createSmallCard = (city) => {
@@ -26,6 +26,7 @@ const createSmallCard = (city) => {
     let smallCardWrapper = document.createElement('div');
    
     smallCardWrapper.classList.add('small-card');
+    smallCardWrapper.setAttribute('data-id', city.id);
     smallCardWrapper.append(smallCard);
     smallCardWrapper.setAttribute('draggable', 'true');
 

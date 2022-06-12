@@ -19,11 +19,29 @@ const map = L.map('map-weather')
 },)
     .addTo(map);
 
-// const marker = L.marker(START_COORDINATE,
-//     {
-//         draggable: true,
-//     },
-// );
 
-// marker.addTo(map);
+    let layer = L.layerGroup();
+
+// Отрисовка меток выбранных городов
+const renderPoint = (point_big_card) => {
+  const {lon, lat} = point_big_card;
+
+      const marker = L.marker({lon, lat});
+     
+      layer.addLayer(marker).addTo(map);
+      let marker_id = layer.getLayerId(marker);
+      console.log(marker_id + ' - markerID');
+      return marker_id;
+};
+
+// Удаление меток выбранных городов
+const deletePoint = (marker_id) => {
+  layer.removeLayer(marker_id);
+  console.log('Маркер удален');
+};
+
+
+
+export {renderPoint, deletePoint};
+
 

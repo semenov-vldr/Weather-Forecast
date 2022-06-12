@@ -31,8 +31,6 @@ const sortingReverseByName = () => {
     document.querySelector('.weather-content__small-cards > div:last-child').style.marginBottom = '2px';
 };
 
+
 sort.addEventListener('change', sortingByName);
 sortReverse.addEventListener('change', sortingReverseByName);
-
-
-export { sortingByName }

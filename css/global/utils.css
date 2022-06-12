@@ -45,6 +45,6 @@
   display: none;
 }
 
-.color {
-  color: tomato;
+.selected {
+  opacity: 0.6;
 }

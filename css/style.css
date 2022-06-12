@@ -5,7 +5,7 @@
 @import url("./global/fonts.css");
 @import url("./global/reboot.css");
 @import url("./global/typography.css");
-@import url("./global/utils.css");
+
 
 @import url("./blocks/icon.css");
 @import url("./blocks/sort-form.css");
@@ -15,3 +15,6 @@
 @import url("./blocks/weather-app.css");
 @import url("./blocks/weather-content.css");
 @import url("./blocks/pin.css");
+
+
+@import url("./global/utils.css");

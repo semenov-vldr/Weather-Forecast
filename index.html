@@ -104,13 +104,7 @@
             <h2 class="visually-hidden">Результаты сортировки</h2>
             <!-- Блок с маленькими карточками городов -->
             <div class="weather-content__small-cards">
-           
-              <!-- <div class="small-cardd" id="test" draggable="true">
-                <span class="small-card__city">Чебоксары - test</span>
-                <span class="small-card__temperature">+17°</span>
-                <span class="icon icon--strips-small"></span>
-              </div> -->
-              
+                 <!-- Вставленные маленькие карточки -->
             </div>
 
             <!-- Блок с большими карточками городов -->
@@ -118,29 +112,8 @@
               <div class="weather-content__help">
                 Перетащите сюда города, погода в которых вам интересна
               </div>
-              
-              <!-- <div class="big-card">
-                <div class="big-card__header">
-                  <span class="icon icon--strips-big"></span>
-                  <span class="big-card__city">Великий Новгород</span>
-                </div>
-                <div class="big-card__content">
-                  <div class="big-card__content-wrapper">
-                    <div class="big-card__weather-conditions">
-                      <span class="icon icon--rainy"></span>
-                      <span class="icon icon--meteor-shower"></span>
-                      <span class="icon icon--tornado"></span>
-                    </div>
-                    <div class="big-card__wind">
-                      <span class="icon icon--wind"></span>
-                      <span class="big-card__wind-info">Ветер ЮВ, 0-1 м/с</span>
-                    </div>
-                  </div>
-                  <span class="big-card__temperature">+12°</span>
-                </div>
-              </div> -->
-     
-              <div class="big-card big-card--empty"></div>
+                <!-- Вставленные большие карточки -->
+              <div class="big-card big-card--empty hidden"></div>
           
             </div>
           </section>
@@ -179,6 +152,7 @@
         </div>
     </template>
 
+    <script src="./js/Sortable.js"></script>
     <script src="./node_modules/leaflet/dist/leaflet.js"></script>
     <script src="./js/script.js" type="module"></script>
   </body>

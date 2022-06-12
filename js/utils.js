@@ -58,7 +58,7 @@ const getDirWind = (deg) => {
 };
 
 // Проверка знака температуры
-const checkPolarity = (value) => value < 0 ? '' + value: '+' + value;
+const checkPolarity = (value) => value <= 0 ? '' + value: '+' + value;
 
 
 export {DIR_OF_THE_WILD, getDirWind, checkPolarity};

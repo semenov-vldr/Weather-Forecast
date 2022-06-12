@@ -19,6 +19,10 @@
   scrollbar-width: none;
 }
 
+.bordered {
+  border-right: 5px dashed tomato;
+}
+
 .weather-content__small-cards::-webkit-scrollbar,
 .weather-content__big-cards::-webkit-scrollbar {
   display: none;
